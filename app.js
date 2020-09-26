@@ -1,16 +1,8 @@
 const inquirer = require('inquirer');
 
-//const fs = require('fs');
-//const generatePage = require('./src/page-template.js');
+const fs = require('fs');
+const generatePage = require('./src/page-template.js');
 
-//const pageHTML = generatePage(name, github);
-
-
-//fs.writeFile('./index.html', pageHTML, err => {
-//    if(err) throw err;
-//    
-//    console.log('Portolio complete!  Check out index.html to see the output!');
-//});
 
 const promptUser = () => {
     return inquirer.prompt ([
@@ -138,5 +130,12 @@ if (!portfolioData.projects) {
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
-    console.log(portfolioData);
+    const pageHTML = generatePage(portfolioData);
+
+
+fs.writeFile('./index.html', pageHTML, err => {
+    if(err) throw err;
+    
+    console.log('Portolio complete!  Check out index.html to see the output!');
+});
   });
